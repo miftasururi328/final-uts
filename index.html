@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRAVELUX — More Journey, More Story</title>
+<meta name="description" content="TRAVELUX - Jelajahi Dunia, Ciptakan Cerita. Pesan tiket pesawat, kereta, dan bus.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="style.css?v=13">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+<script>window.addEventListener('error',function(e){if(!e||!e.message)return;var d=document.createElement('div');d.style.cssText='position:fixed;bottom:12px;left:12px;right:12px;z-index:999;background:#7f1d1d;color:#fff;padding:12px 16px;border-radius:12px;font:14px sans-serif';d.textContent='⚠ TRAVELUX gagal jalan: '+e.message+' — hard refresh (Ctrl+Shift+R) lalu coba lagi.';document.body.appendChild(d);},true);</script>
+</head>
+<body>
+<div id="progress"></div>
+<!-- ===== PRELOADER ===== -->
+<div id="loader"><div class="loader-plane"><i class="fa-solid fa-plane-departure"></i></div><b>TRAVELUX</b><small>More Journey, More Story…</small><div class="loader-bar"><span></span></div></div>
+<!-- ===== TOAST ===== -->
+<div id="toastWrap" class="toast-wrap" aria-live="polite"></div>
+<!-- ===== NAVBAR ===== -->
+<header id="navbar" class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="#" data-nav="beranda"><span class="brand-ico"><i class="fa-solid fa-plane-departure"></i></span>
+      <span class="brand-txt">TRAVELUX<small>More Journey, More Story</small></span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#" data-nav="beranda" class="active">Beranda</a>
+      <a href="#" data-nav="cari">Cari Tiket</a>
+      <a href="#" data-nav="pesanan">Pesanan Saya <span class="pill" id="orderCount">0</span></a>
+      <a href="#" data-nav="promo">Promo</a>
+      <a href="#" data-nav="tentang">Tentang</a>
+    </nav>
+    <div class="nav-act">
+      <button class="icon-btn" id="themeBtn" title="Ganti tema" aria-label="Ganti tema"><i class="fa-solid fa-palette"></i></button>
+      <div class="notif-drop theme-drop" id="themeDrop" hidden><b data-i18n="theme">Mode Tampilan</b>
+        <div class="theme-grid">
+          <button data-theme-val="light"><span class="th-prev"><i style="background:#061B38"></i><i style="background:#F2F7FF"></i><i style="background:#FF7626"></i></span><span data-i18n="th_light">Cerah</span><em>✓</em></button>
+          <button data-theme-val="dark"><span class="th-prev"><i style="background:#061B38"></i><i style="background:#081a36"></i><i style="background:#35D6FF"></i></span><span data-i18n="th_dark">Gelap</span><em>✓</em></button>
+          <button data-theme-val="ocean"><span class="th-prev"><i style="background:#03293d"></i><i style="background:#e6f9ff"></i><i style="background:#fb923c"></i></span><span data-i18n="th_ocean">Ocean</span><em>✓</em></button>
+          <button data-theme-val="sunset"><span class="th-prev"><i style="background:#3a1503"></i><i style="background:#fff4e8"></i><i style="background:#e11d48"></i></span><span data-i18n="th_sunset">Sunset</span><em>✓</em></button>
+        </div>
+      </div>
+      <div class="lang-seg"><button id="langID" class="on">ID</button><button id="langEN">EN</button></div>
+      <button class="icon-btn bell" id="bellBtn" title="Notifikasi" aria-label="Notifikasi"><i class="fa-solid fa-bell"></i><span class="dot"></span></button>
+      <div class="notif-drop" id="notifDrop" hidden><b>Notifikasi</b><div>🎉 Flash Sale 50% s/d 31 Des 2026 (demo)</div><div>✈ Rute baru: Bali → Labuan Bajo</div><div>🎫 E-ticket + QR boarding sudah tersedia</div></div>
+      <div class="avatar" id="avatarBtn" title="Pengguna demo">AS</div>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ============ BERANDA ============ -->
+<section class="page active" id="page-beranda">
+  <div class="hero">
+    <img class="hero-bg" src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1920&q=80" alt="Gerbang pura Bali saat matahari terbenam" onerror="this.style.display='none'">
+    <div class="hero-overlay"></div>
+    <svg class="route-line" viewBox="0 0 800 200" preserveAspectRatio="none"><path d="M20,160 C200,40 400,180 780,40" fill="none" stroke="#35D6FF" stroke-width="2.5" stroke-dasharray="10 8"/><circle cx="20" cy="160" r="6" fill="#FF7626"/><circle cx="780" cy="40" r="6" fill="#35D6FF"/></svg>
+    <i class="fa-solid fa-plane hero-plane"></i>
+    <div class="container hero-content">
+      <span class="hero-badge"><i class="fa-solid fa-compass"></i> Cinematic Luxury Travel Experience</span>
+      <h1>Jelajahi Dunia,<br>Pesan <span class="hl">Perjalananmu.</span></h1>
+      <p>Temukan tiket pesawat, kereta, dan bus dengan harga terbaik untuk liburan impianmu. <b>Jelajahi Dunia, Ciptakan Cerita.</b></p>
+      <div class="hero-btns">
+        <button class="btn btn-primary btn-lg" data-nav="cari"><i class="fa-solid fa-rocket"></i> Mulai Petualangan</button>
+        <button class="btn btn-glass btn-lg" data-nav="promo"><i class="fa-solid fa-ticket"></i> Lihat Promo</button>
+      </div>
+      <div class="hero-stats">
+        <div><b data-count="120">0</b><span>Rute Populer</span></div>
+        <div><b><span data-count="15">0</span>K+</b><span>Traveler Puas</span></div>
+        <div><b>4.9★</b><span>Rating Aplikasi</span></div>
+        <div class="live-clock"><i class="fa-solid fa-clock"></i> <span id="liveClock">--:--</span></div>
+      </div>
+      <div class="flash-strip"><i class="fa-solid fa-bolt"></i> <b>Flash Sale 50%</b> berakhir dalam <b id="countdown">02:00:00</b> <button class="btn btn-primary btn-sm" data-nav="promo">Klaim</button></div>
+      <div class="hero-float">
+        <div class="float-card"><img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=200&q=60" alt="Bali"><div><b>Bali ★ 4.9</b><small>Pulau Dewata</small></div></div>
+        <div class="float-card small"><i class="fa-solid fa-compass"></i><div><b>Explore More</b><small>12 destinasi</small></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Marquee rute -->
+  <div class="marquee"><div class="marquee-in">
+    <span>✈ SURABAYA → YOGYAKARTA</span><span>● BALI</span><span>✈ JAKARTA → LABUAN BAJO</span><span>● LOMBOK</span><span>✈ SURABAYA → MALANG</span><span>● BROMO</span><span>✈ FLASH SALE 50% (DEMO)</span><span>● MORE JOURNEY, MORE STORY</span>
+  </div></div>
+
+  <!-- Search mengambang -->
+  <div class="container search-float">
+    <div class="search-card">
+      <div class="tabs" id="homeTabs">
+        <button class="tab active" data-t="pesawat"><i class="fa-solid fa-plane"></i> Pesawat</button>
+        <button class="tab" data-t="kereta"><i class="fa-solid fa-train"></i> Kereta Api</button>
+        <button class="tab" data-t="bus"><i class="fa-solid fa-bus"></i> Bus</button>
+      </div>
+      <div class="search-grid">
+        <div class="field"><label><i class="fa-solid fa-circle-dot"></i> Dari</label>
+          <select id="hAsal"></select></div>
+        <button class="swap" id="swapBtn" title="Tukar rute"><i class="fa-solid fa-arrow-right-arrow-left"></i></button>
+        <div class="field"><label><i class="fa-solid fa-location-dot"></i> Ke</label>
+          <select id="hTujuan"></select></div>
+        <div class="field"><label><i class="fa-solid fa-calendar-days"></i> Tanggal Berangkat</label>
+          <input type="date" id="hTanggal"></div>
+        <div class="field"><label><i class="fa-solid fa-users"></i> Penumpang</label>
+          <div class="pax-stepper"><button type="button" data-pax="hPax" data-d="-1" aria-label="Kurangi">−</button><input type="hidden" id="hPax" value="1"><b id="hPaxView">1 orang</b><button type="button" data-pax="hPax" data-d="1" aria-label="Tambah">+</button></div>
+          <small class="muted">Jumlah orang yg ikut (maks 10)</small></div>
+        <button class="btn btn-primary btn-lg" id="hCari"><i class="fa-solid fa-magnifying-glass"></i> Cari Tiket</button>
+      </div>
+      <div class="history" id="searchHistory"></div>
+    </div>
+    <div class="trust-row">
+      <div><i class="fa-solid fa-badge-check"></i><b>Harga Terbaik</b><span>Jaminan harga termurah</span></div>
+      <div><i class="fa-solid fa-shield-halved"></i><b>Pembayaran Aman</b><span>Transaksi 100% aman (simulasi)</span></div>
+      <div><i class="fa-solid fa-headset"></i><b>CS 24/7</b><span>Siap membantu kapan saja</span></div>
+    </div>
+  </div>
+
+  <!-- Destinasi -->
+  <div class="container sect">
+    <div class="sect-head"><div><h2>Destinasi Populer</h2><p>Jelajahi destinasi favorit dengan pemandangan yang memukau</p></div>
+      <button class="link" id="favToggle">♥ Favorit saya (<span id="favCount">0</span>)</button></div>
+    <div class="dest-grid" id="destGrid"></div>
+  </div>
+
+  <!-- Promo -->
+  <div class="container sect">
+    <div class="sect-head"><div><h2>Promo Spesial</h2><p>Penawaran demonstrasi — bukan diskon nyata</p></div>
+      <button class="link" data-nav="promo">Lihat Semua →</button></div>
+    <div class="promo-grid">
+      <div class="promo big"><img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=80" alt="Promo tiket pesawat" onerror="this.style.display='none'">
+        <div class="promo-txt"><span class="badge-o">Hingga 50%</span><h3>Promo Tiket Pesawat Domestik & Internasional</h3><button class="btn btn-primary btn-sm" data-nav="promo">Lihat Promo</button></div></div>
+      <div class="promo"><img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=80" alt="Paket liburan Bali" onerror="this.style.display='none'">
+        <div class="promo-txt"><span class="badge-c">Hemat</span><h3>Paket Liburan Hemat mulai Rp 300rb</h3><button class="btn btn-glass btn-sm" data-nav="cari">Pesan Sekarang</button></div></div>
+      <div class="promo"><img src="https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=900&q=80" alt="Petualangan Labuan Bajo" onerror="this.style.display='none'">
+        <div class="promo-txt"><span class="badge-c">Explore</span><h3>Petualangan Jelajahi Indonesia</h3><button class="btn btn-glass btn-sm" data-nav="promo">Explore More</button></div></div>
+    </div>
+  </div>
+
+  <!-- Rekomendasi -->
+  <div class="container sect">
+    <div class="sect-head"><div><h2>Rekomendasi Tiket</h2><p>Pilihan populer minggu ini (data simulasi)</p></div></div>
+    <div class="rec-grid" id="recGrid"></div>
+  </div>
+
+  <!-- Keunggulan -->
+  <div class="container sect feat">
+    <h2 class="center">Kenapa TRAVELUX?</h2>
+    <div class="feat-grid">
+      <div class="feat-card"><i class="fa-solid fa-magnifying-glass-location"></i><h4>Pencarian Praktis</h4><p>Filter pesawat, kereta, dan bus dalam satu genggaman.</p></div>
+      <div class="feat-card"><i class="fa-solid fa-circle-info"></i><h4>Info Tiket Jelas</h4><p>Jadwal, durasi, transit, dan bagasi tampil transparan.</p></div>
+      <div class="feat-card"><i class="fa-solid fa-bolt"></i><h4>Pemesanan Mudah</h4><p>Checkout 3 langkah dengan kode booking unik otomatis.</p></div>
+      <div class="feat-card"><i class="fa-solid fa-box-archive"></i><h4>Tanpa Database</h4><p>Semua data hanya di sesi ini — reload kembali baru, tanpa database.</p></div>
+    </div>
+  </div>
+
+  <!-- Testimoni -->
+  <div class="container sect reveal">
+    <div class="sect-head"><div><h2>Kata Mereka ✦</h2><p>Testimoni traveler (data demonstrasi)</p></div>
+      <div><button class="icon-btn dark" id="testiPrev">‹</button> <button class="icon-btn dark" id="testiNext">›</button></div></div>
+    <div class="testi-track" id="testiTrack">
+      <div class="testi"><p>"Checkout 2 menit, e-ticket langsung jadi. Desainnya kayak aplikasi travel beneran!"</p><div class="t-user"><span class="avatar">NA</span><div><b>Nadia Ayu</b><small>Surabaya → Yogyakarta • ★★★★★</small></div></div></div>
+      <div class="testi"><p>"Filter lengkap dan harganya transparan. Desainnya kayak startup beneran."</p><div class="t-user"><span class="avatar">RZ</span><div><b>Rizky Zan</b><small>Jakarta → Bali • ★★★★★</small></div></div></div>
+      <div class="testi"><p>"Dark mode + tiket perforasi-nya mewah. Batal & refund simulasi gampang."</p><div class="t-user"><span class="avatar">MP</span><div><b>Maya Putri</b><small>Bandung → Malang • ★★★★☆</small></div></div></div>
+    </div>
+  </div>
+
+  <!-- FAQ + Newsletter -->
+  <div class="container sect faq-grid reveal">
+    <div class="card"><h3>❓ FAQ Singkat</h3>
+      <details open><summary>Apakah ini tiket sungguhan?</summary><p>Tidak. Semua jadwal, harga & promo adalah simulasi untuk demo tugas Struktur Data.</p></details>
+      <details><summary>Apakah data saya disimpan?</summary><p>Tidak. Tanpa database — semua hilang saat reload, jadi privasimu aman.</p></details>
+      <details><summary>Bagaimana urutan harga bekerja?</summary><p>Bubble Sort manual mengurutkan 4 mode (Termurah, Termahal, Awal, Tercepat). Setiap banding &amp; tukar tampil di Log Bubble Sort.</p></details>
+      <details><summary>Di mana log sorting &amp; searching?</summary><p>Di halaman Cari: Log Bubble Sort selalu tampil, dan Log Linear Search muncul saat kamu mengetik di kolom cari cepat.</p></details>
+    </div>
+    <div class="card news"><h3>✉ Dapatkan Promo (demo)</h3><p>Contoh newsletter — tidak mengirim email sungguhan.</p>
+      <div class="row2"><input id="newsEmail" placeholder="email@contoh.com"><button class="btn btn-primary" id="newsBtn">Langganan</button></div>
+      <div class="pay-icons"><span><i class="fa-brands fa-cc-visa"></i></span><span><i class="fa-solid fa-qrcode"></i> QRIS</span><span><i class="fa-solid fa-wallet"></i> E-Wallet</span><span><i class="fa-solid fa-building-columns"></i> VA</span></div>
+    </div>
+  </div>
+
+  <div class="cta-panorama">
+    <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1600&q=80" alt="Panorama pantai" onerror="this.style.display='none'">
+    <div><h2>Jadikan Setiap Perjalananmu Cerita Indah ♡</h2><p>More Journey, More Story…</p><button class="btn btn-primary" data-nav="cari">Cari Tiket Sekarang</button></div>
+  </div>
+</section>
+
+<!-- ============ CARI ============ -->
+<section class="page" id="page-cari">
+  <div class="page-hero"><div class="container"><h2>Cari Tiket Terbaik untuk Perjalananmu</h2><p>Temukan tiket pesawat, kereta, dan bus (data simulasi, bukan jadwal real-time).</p>
+    <div class="mini-search">
+      <div class="mini-field"><label>Dari</label><select id="sAsal"></select></div>
+      <button class="swap small" id="swapBtn2" title="Tukar rute"><i class="fa-solid fa-arrow-right-arrow-left"></i></button>
+      <div class="mini-field"><label>Ke</label><select id="sTujuan"></select></div>
+      <div class="mini-field"><label>Tanggal</label><input type="date" id="sTanggal"></div>
+      <div class="mini-field"><label>Penumpang</label>
+        <div class="pax-stepper light"><button type="button" data-pax="sPax" data-d="-1" aria-label="Kurangi">−</button><input type="hidden" id="sPax" value="1"><b id="sPaxView">1</b><button type="button" data-pax="sPax" data-d="1" aria-label="Tambah">+</button></div></div>
+      <button class="btn btn-primary" id="sCari"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+      <button class="btn btn-ghost light" id="sUbah">Ubah</button>
+    </div>
+    <small class="mini-hint">💡 <b>Penumpang</b> = jumlah orang yang ikut perjalanan ini. Atur 1–10 orang, harga total menyesuaikan otomatis.</small>
+    <div class="tabs dark" id="searchTabs">
+      <button class="tab active" data-t="pesawat"><i class="fa-solid fa-plane"></i> Pesawat</button>
+      <button class="tab" data-t="kereta"><i class="fa-solid fa-train"></i> Kereta Api</button>
+      <button class="tab" data-t="bus"><i class="fa-solid fa-bus"></i> Bus</button>
+    </div></div></div>
+  <div class="container dash">
+    <aside class="filter">
+      <h3><i class="fa-solid fa-sliders"></i> Filter <button class="link" id="resetFilter">Reset</button></h3>
+      <label>Kisaran Harga</label>
+      <div class="row2"><input type="number" id="fMin" placeholder="Min" min="0"><input type="number" id="fMax" placeholder="Max" min="0"></div>
+      <input type="range" id="fRange" min="100000" max="3000000" step="50000" value="3000000">
+      <div class="fval">Maks: <b id="fRangeVal">Rp 3.000.000</b></div>
+      <label>Maskapai / Operator</label><div id="fOps" class="checks"></div>
+      <label>Waktu Berangkat</label>
+      <div class="checks"><label><input type="checkbox" class="fTime" value="pagi"> Pagi (06–12)</label>
+      <label><input type="checkbox" class="fTime" value="siang"> Siang (12–17)</label>
+      <label><input type="checkbox" class="fTime" value="malam"> Malam (17–24)</label></div>
+      <label>Urutkan</label>
+      <select id="sortSel"><option value="termurah">Harga Termurah</option><option value="termahal">Harga Termahal</option><option value="awal">Keberangkatan Paling Awal</option><option value="cepat">Durasi Tercepat</option></select>
+      <p class="note" id="modeNote">🚂🚌 Kereta & bus melayani Jawa–Bali; luar itu naik pesawat (simulasi).</p>
+    </aside>
+    <div class="results">
+      <div class="res-bar"><span id="resSummary" aria-live="polite">—</span><span class="chip" id="filterChip" hidden>Filter aktif</span><span class="chip daily" id="dailyChip">🗓️ Jadwal harian — tiket tersedia di tanggal mana pun (simulasi)</span></div>
+      <div class="res-bar"><div class="search-fast"><i class="fa-solid fa-magnifying-glass"></i><input id="qOp" placeholder="Ketik operator / kode / kota…" aria-label="Cari cepat"><button id="qClear" type="button" title="Bersihkan" aria-label="Bersihkan pencarian" hidden>&times;</button></div></div>
+      <details id="sortLog" class="dslog" open>
+        <summary><span class="ds-ico">🔀</span><span class="ds-sum-main"><b id="sortLogTitle">Log Bubble Sort (manual)</b><small id="sortLogHint">Hasil di bawah diurutkan dengan Bubble Sort buatan sendiri — setiap banding &amp; tukar dicatat.</small></span><span id="sortLogSum" class="ds-stats"></span></summary>
+        <div class="dslog-body" id="sortLogBody"></div>
+      </details>
+      <details id="searchLog" class="dslog dssearch" hidden>
+        <summary><span class="ds-ico">🔎</span><span class="ds-sum-main"><b id="searchLogTitle">Log Linear Search (manual)</b><small id="searchLogHint">Pencarian cepat memeriksa array satu per satu dari indeks 0.</small></span><span id="searchLogSum" class="ds-stats"></span></summary>
+        <div class="dslog-body" id="searchLogBody"></div>
+      </details>
+      <div id="skeleton" class="skel-wrap" hidden></div>
+      <div id="resultList" class="ticket-list"></div>
+      <div id="emptyBox" class="empty" hidden><div class="empty-art">🧳✈️</div><h3>Tidak ada tiket ditemukan</h3><p>Coba ubah rute, tanggal, atau reset filter.</p><div class="why" id="emptyWhy"></div><div class="row3" style="justify-content:center"><button class="btn btn-primary btn-sm" id="emptyReset">Reset Filter</button><button class="btn btn-ghost btn-sm" id="emptyLoose">Longgarkan Harga</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DETAIL ============ -->
+<section class="page" id="page-detail">
+  <div class="container"><button class="link back" data-nav="cari">← Kembali ke Hasil Pencarian</button>
+    <div class="detail-grid">
+      <div>
+        <div class="detail-banner"><img id="dImg" src="" alt="Banner perjalanan"><div class="detail-route"><span id="dOp"></span><h3 id="dRoute"></h3><span id="dCode" class="chip"></span></div></div>
+        <div class="card timeline-card">
+          <div class="t-row"><div><b id="dDep">—</b><span id="dFrom">—</span></div>
+            <div class="t-line"><i class="fa-solid fa-plane"></i></div>
+            <div class="right"><b id="dArr">—</b><span id="dTo">—</span></div></div>
+          <div class="t-meta" id="dMeta"></div>
+          <p class="note">⚠ Data tiket bersifat simulasi untuk demo tugas, bukan jadwal transportasi real-time.</p>
+        </div>
+        <div class="card"><h3><i class="fa-solid fa-circle-info"></i> Detail Perjalanan</h3><div class="kv" id="dKv"></div></div>
+      </div>
+      <div>
+        <div class="card"><h3><i class="fa-solid fa-pen-to-square"></i> Form Pemesanan</h3>
+          <label>Nama Pemesan *</label><input id="bNama" placeholder="Contoh: Budi Santoso">
+          <label>NIK (16 digit) * <span class="hint" title="Nomor Induk Kependudukan untuk verifikasi identitas — cegah tiket dipakai orang lain">ⓘ</span></label><input id="bNik" inputmode="numeric" maxlength="16" placeholder="Contoh: 3578xxxxxxxxxx">
+          <small class="muted">🔒 NIK hanya untuk verifikasi pemilik tiket & tersimpan di perangkatmu.</small>
+          <label>Email *</label><input id="bEmail" type="email" placeholder="contoh@email.com">
+          <label>No. Telepon (opsional)</label><input id="bTelp" placeholder="08xxxxxxxxxx">
+          <label>Jumlah Penumpang</label>
+          <div class="pax-stepper"><button type="button" data-pax="bPax" data-d="-1" aria-label="Kurangi">−</button><input type="hidden" id="bPax" value="1"><b id="bPaxView">1 orang</b><button type="button" data-pax="bPax" data-d="1" aria-label="Tambah">+</button></div>
+          <label>Catatan (opsional)</label><textarea id="bNote" rows="2" placeholder="Kursi dekat jendela…"></textarea>
+          <div class="err" id="bErr" hidden></div>
+        </div>
+        <div class="card"><h3><i class="fa-solid fa-couch"></i> Pilih Kursi (simulasi)</h3>
+          <div class="seat-map" id="seatMap"></div>
+          <div class="legend"><span><i class="sw free"></i><b id="lgFree">Kosong</b></span><span><i class="sw pick"></i><b id="lgPick">Pilihanmu</b></span><span><i class="sw busy"></i><b id="lgBusy">Terisi</b></span></div>
+          <small class="muted">Kursi terpilih: <b id="seatPicked">-</b> • Gratis, hanya demo</small>
+        </div>
+        <div class="card price"><h3>Ringkasan Harga</h3><div class="kv" id="bKv"></div>
+          <label>Kode Promo (demo: HEMAT50 / LUX20)</label>
+          <div class="row2"><input id="bPromo" placeholder="Kode promo"><button class="btn btn-ghost btn-sm" id="bPromoBtn">Pakai</button></div>
+          <label>Metode Pembayaran (simulasi)</label>
+          <div class="pay-grid" id="payGrid">
+            <button class="pay active" data-pay="QRIS"><i class="fa-solid fa-qrcode"></i>QRIS</button>
+            <button class="pay" data-pay="VA"><i class="fa-solid fa-building-columns"></i>VA Bank</button>
+            <button class="pay" data-pay="E-Wallet"><i class="fa-solid fa-wallet"></i>E-Wallet</button>
+            <button class="pay" data-pay="Kartu"><i class="fa-brands fa-cc-visa"></i>Kartu</button>
+          </div>
+          <button class="btn btn-primary btn-lg full" id="bConfirm">Bayar <span id="payLabel">QRIS</span> <i class="fa-solid fa-arrow-right"></i></button>
+          <p class="note">Demo lokal — tidak ada pembayaran sungguhan yang dilakukan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KONFIRMASI ============ -->
+<section class="page" id="page-konfirmasi">
+  <div class="container narrow">
+    <div class="steps"><span class="done">1 Pilih</span><span class="done">2 Data</span><span class="done">3 Bayar</span><span class="now">4 Selesai</span></div>
+    <div class="card success-card">
+      <div class="check"><i class="fa-solid fa-check"></i></div>
+      <h2>Pesanan Berhasil!</h2><p>Tiket perjalanan Anda telah dibuat. Detail e-ticket di bawah ini.</p>
+      <div class="booking-code"><span id="kCode">TLX-XXXXXX</span><button class="btn btn-primary btn-sm" id="copyCode"><i class="fa-solid fa-copy"></i> Salin</button></div>
+      <div class="eticket etix" id="eTicket"></div>
+      <div class="qr-row"><canvas id="qrCanvas" width="147" height="147"></canvas><div><b>Scan saat boarding (simulasi)</b><br><small class="muted" id="qrText">QR demonstrasi, bukan tiket asli.</small><div class="barcode" id="barcode"></div><small class="muted">Tunjukkan layar ini saat check-in (demo).</small></div></div>
+      <div class="row3">
+        <button class="btn btn-primary" id="kLihat"><i class="fa-solid fa-ticket"></i> Lihat Semua Pesanan</button>
+        <button class="btn btn-ghost" data-nav="pesanan">Pesanan Saya</button>
+        <button class="btn btn-ghost" data-nav="beranda">Beranda</button>
+      </div>
+      <div class="row3"><button class="btn btn-ghost btn-sm" id="dlPng"><i class="fa-solid fa-image"></i> Unduh PNG</button>
+      <button class="btn btn-ghost btn-sm" id="dlPdf"><i class="fa-solid fa-file-pdf"></i> Unduh PDF</button>
+      <button class="btn btn-ghost btn-sm" id="exportTxt"><i class="fa-solid fa-download"></i> Export .txt</button>
+      <button class="btn btn-ghost btn-sm" id="printBtn"><i class="fa-solid fa-print"></i> Cetak</button>
+      <a class="btn btn-ghost btn-sm" id="waShare" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Share WA</a></div>
+      <p class="note">E-ticket telah dikirim ke email Anda (simulasi).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PESANAN ============ -->
+<section class="page" id="page-pesanan">
+  <div class="container pesanan-grid"><div>
+    <h2>Pesanan Saya</h2><p class="muted">Kelola semua pesanan tiket perjalanan Anda.</p>
+    <div class="order-bar">
+      <div class="tabs small" id="orderTabs"><button class="tab active" data-s="semua">Semua</button><button class="tab" data-s="menunggu">Menunggu</button><button class="tab" data-s="berhasil">Berhasil</button><button class="tab" data-s="dibatalkan">Dibatalkan</button></div>
+      <input id="orderSearch" placeholder="🔍 Cari kode booking…">
+    </div>
+    <div id="orderList" class="order-list"></div>
+    <div id="orderEmpty" class="empty" hidden><div class="empty-art">🎫</div><h3>Belum ada pesanan</h3><p>Mulai petualangan pertamamu sekarang!</p><button class="btn btn-primary btn-sm" data-nav="cari">Cari Tiket</button></div>
+  </div>
+  <aside class="promo side-promo"><img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" alt="Travel Lebih Mudah" onerror="this.style.display='none'">
+    <div class="promo-txt"><h3>Travel Lebih Mudah Bersama TRAVELUX</h3><small>✓ Pesan tiket kapan saja ✓ Harga terbaik ✓ Banyak pilihan transportasi</small><button class="btn btn-primary btn-sm" data-nav="cari">Cari Tiket</button></div></aside>
+  </div>
+</section>
+
+<!-- ============ PROMO ============ -->
+<section class="page" id="page-promo">
+  <div class="promo-hero"><div class="container"><h2>Promo Spesial Buat Kamu ✈</h2><p>Semua promo adalah data demonstrasi & periode simulasi.</p>
+    <div class="tabs" id="promoTabs"><button class="tab active" data-c="semua">Semua</button><button class="tab" data-c="pesawat">Pesawat</button><button class="tab" data-c="kereta">Kereta</button><button class="tab" data-c="bus">Bus</button><button class="tab" data-c="destinasi">Destinasi</button></div></div></div>
+  <div class="container"><div class="promo-grid" id="promoGrid"></div></div>
+</section>
+
+<!-- ============ TENTANG ============ -->
+<section class="page" id="page-tentang">
+  <div class="container about">
+    <div><span class="badge-c">Tentang Kami</span><h2>TRAVELUX — More Journey, More Story.</h2>
+      <p><b>TRAVELUX</b> adalah proyek individu mata kuliah <b>Struktur Data</b> (tema NIM Genap: Ticketing). Aplikasi web pemesanan tiket pesawat, kereta, dan bus yang berjalan 100% di browser <b>tanpa database</b> — tanpa backend.</p>
+      <ul class="check-list"><li>Pencarian pesawat, kereta & bus dalam satu aplikasi</li><li>Filter harga, operator & jam + urutan otomatis</li><li>Tanpa database: reload kembali baru, privasi aman</li></ul>
+      <div class="team"><div class="avatar big">AS</div><div><b>Pengembang: Mahasiswa Demo</b><br><span class="muted">Kontak contoh: halo@travelux.demo (fiktif, hanya untuk demo)</span></div></div>
+    </div>
+    <div class="about-img"><img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80" alt="Traveler dengan peta" onerror="this.style.display='none'"></div>
+  </div>
+
+  <div class="container ds-wrap reveal">
+    <div class="sect-head"><div><h2 id="dsHeading">🧠 Struktur Data di Balik TRAVELUX</h2><p id="dsSub">Bukan sekadar tampilan — ini bukti Array, Struct, Pointer, Sorting, dan Searching yang benar-benar dipakai aplikasi.</p></div></div>
+    <div class="ds-grid">
+      <article class="ds-card">
+        <span class="ds-tag">ARRAY</span>
+        <h4 id="dsArrayT">Array of Struct</h4>
+        <p id="dsArrayD">70 tiket disimpan berurutan di satu array. Setiap kartu menampilkan Array[n] sebagai indeks aslinya.</p>
+        <pre class="ds-snippet">tickets[0] … tickets[69]
+<span class="tok-key">tickets</span>[<span class="tok-id">12</span>] <span class="tok-arrow">→</span> struct tiket</pre>
+      </article>
+      <article class="ds-card">
+        <span class="ds-tag">STRUCT</span>
+        <h4 id="dsStructT">Struct Tiket</h4>
+        <p id="dsStructD">Satu tiket = satu struct dengan field id, operator, asal, tujuan, harga, dan lainnya.</p>
+        <pre class="ds-snippet"><span class="tok-key">struct</span> Tiket {
+  <span class="tok-key">int</span> id; <span class="tok-key">char</span> operator[24];
+  <span class="tok-key">char</span> asal[24], tujuan[24];
+  <span class="tok-key">int</span> harga, durasiMenit;
+};</pre>
+      </article>
+      <article class="ds-card">
+        <span class="ds-tag">POINTER</span>
+        <h4 id="dsPtrT">Pointer / Reference</h4>
+        <p id="dsPtrD">currentTicket menunjuk struct yang dipilih. JavaScript memakai reference (bukan alamat memori mentah), jadi perubahan objek ikut terlihat.</p>
+        <pre class="ds-snippet"><span class="tok-key">let</span> currentTicket <span class="tok-arrow">→</span> Tiket[<span class="tok-id">n</span>]
+<span class="tok-key">let</span> alias = currentTicket; <span class="muted">// reference</span></pre>
+      </article>
+    </div>
+
+    <div class="ds-live">
+      <div class="ds-live-head"><span class="dot-live"></span><b id="dsLiveTitle">Panel Live — Pointer Aktif</b><span class="muted" id="dsHint">Klik “Pilih Tiket” di halaman Cari, lalu buka Tentang untuk melihat pointer berpindah.</span></div>
+      <div class="ds-code" id="dsCurrent"><span class="tok">currentTicket</span> = <b>null</b></div>
+      <div class="ds-code sub" id="dsStructSample">{ id:1, operator:"Lion Air", transportasi:"pesawat", asal:"Surabaya", tujuan:"Yogyakarta", harga:450000 }</div>
+      <div class="ds-stats-row">
+        <span><b id="dsCount">70</b><small id="dsCLabel">Total tiket</small></span>
+        <span><b id="dsRoutes">40</b><small id="dsRLabel">Rute unik</small></span>
+        <span><b id="dsOrders">0</b><small id="dsOLabel">Pesanan sesi</small></span>
+        <span><b>O(n²) / O(n)</b><small>Bubble Sort / Linear Search</small></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <img class="foot-bg" src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1600&q=80" alt="" onerror="this.style.display='none'">
+  <div class="container foot-grid">
+    <div><div class="brand"><span class="brand-ico"><i class="fa-solid fa-plane-departure"></i></span><span class="brand-txt">TRAVELUX<small>More Journey, More Story</small></span></div>
+      <p>Jelajahi Dunia, Ciptakan Cerita. Platform demo pemesanan tiket untuk tugas Struktur Data.</p></div>
+    <div><h4>Navigasi</h4><a href="#" data-nav="beranda">Beranda</a><a href="#" data-nav="cari">Cari Tiket</a><a href="#" data-nav="promo">Promo</a><a href="#" data-nav="pesanan">Pesanan Saya</a></div>
+    <div><h4>Bantuan</h4><a href="#" data-nav="pesanan">Pesanan Saya</a><a href="#" data-nav="tentang">Tentang Kami</a><a href="#" id="resetDataFoot">🔄 Muat Ulang Web</a></div>
+    <div><h4>Kontak Contoh</h4><p>halo@travelux.demo (fiktif)<br>Surabaya, Indonesia (contoh)</p><div class="pay-icons"><span><i class="fa-solid fa-qrcode"></i> QRIS</span><span><i class="fa-solid fa-building-columns"></i> VA</span><span><i class="fa-solid fa-wallet"></i> E-Wallet</span></div></div>
+  </div>
+  <div class="foot-bottom">© 2026 TRAVELUX — Proyek demo. Gambar: Unsplash & Wikimedia Commons (CC BY-SA). Promo & jadwal bersifat simulasi.</div>
+</footer>
+
+<button id="toTop" title="Kembali ke atas"><i class="fa-solid fa-arrow-up"></i></button>
+
+<!-- Modal destinasi -->
+<div class="modal" id="destModal" hidden><div class="modal-box dest-box">
+  <img id="dmImg" src="" alt="Destinasi"><div class="dest-pad">
+  <h3 id="dmJudul"></h3><p class="muted" id="dmDesc"></p>
+  <div class="row-between"><b id="dmHarga"></b><button class="btn btn-primary btn-sm" id="dmCari">Cari Tiket ke sini</button></div>
+  <button class="btn btn-ghost btn-sm full" id="dmTutup" style="margin-top:10px">Tutup</button></div>
+</div></div>
+
+<!-- Modal profil -->
+<div class="modal" id="profilModal" hidden><div class="modal-box">
+  <h3><i class="fa-solid fa-user"></i> Profil Penumpang (demo lokal)</h3>
+  <label>Nama</label><input id="pNama" placeholder="Nama kamu">
+  <label>Email</label><input id="pEmail" placeholder="email@contoh.com">
+  <div class="row3"><button class="btn btn-primary btn-sm" id="pSave">Simpan</button><button class="btn btn-ghost btn-sm" id="pClose">Tutup</button></div>
+</div></div>
+
+<!-- Modal pembayaran -->
+<div class="modal" id="payModal" hidden><div class="modal-box pay-box">
+  <div class="row-between"><h3 id="payTitle"><i class="fa-solid fa-lock"></i> Pembayaran</h3><button class="btn btn-ghost btn-sm" id="payClose">✕</button></div>
+  <div class="pay-timer"><i class="fa-solid fa-hourglass-half"></i> Selesaikan dalam <b id="payTime">10:00</b></div>
+  <div id="payBody"></div>
+  <div class="row3"><button class="btn btn-primary full" id="payDone"><i class="fa-solid fa-check"></i> Saya Sudah Bayar</button></div>
+  <p class="note">Simulasi lokal — tidak ada uang sungguhan yang berpindah. Jangan transfer ke mana pun.</p>
+</div></div>
+
+<!-- Modal umum -->
+<div class="modal" id="genModal" hidden><div class="modal-box"><h3 id="gTitle"></h3><p id="gMsg"></p>
+  <div class="row3"><button class="btn btn-primary btn-sm" id="gOk">Ya</button><button class="btn btn-ghost btn-sm" id="gNo">Batal</button></div></div></div>
+
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" onerror="console.warn('html2canvas offline — ekspor pakai dialog Cetak')"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" onerror="console.warn('jsPDF offline — ekspor pakai dialog Cetak')"></script>
+<script src="script.js?v=13"></script>
+</body>
+</html>
